@@ -1,6 +1,10 @@
-var userRouter = express.Router();
+'use strict';
 
-router.route('/users')
+var express = require('express');
+var userRouter = express.Router();
+var User = require('../models/users.js');
+
+userRouter.route('/users')
 
     .post(function(req, res){
         var user = new User();
@@ -27,7 +31,7 @@ router.route('/users')
         })
     });
 
-router.route('/users/:user')
+userRouter.route('/users/:user')
 
     .get(function(req, res){
         User.findById(req.params.user, function(err, user){
@@ -64,4 +68,4 @@ router.route('/users/:user')
 
     });
 
-module.exports.userRouter = userRouter;
+    module.exports = userRouter;
