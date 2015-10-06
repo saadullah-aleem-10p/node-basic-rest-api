@@ -19,6 +19,8 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://127.0.0.1:27017/node_rest_api');
 
 var User = require('./models/users.js');
+var Item = require('./models/items.js');
+
 
 router.get('/', function(req, res){
     res.json({ message: 'Apparently, this is a REST API'});
@@ -31,14 +33,14 @@ router.route('/users')
         console.log(req.body);
         user.name = req.body.name;
         if (req.body.name === undefined) {
-            res.json({Error: "Cannot create user with no name."})
+            res.json({Error: "Cannot create user with no name."});
             res.sendStatus(400);
         }
         user.save(function(err) {
             if (err)
                 res.send(err);
 
-            res.json({ message: 'User Created!'})
+            res.json(user)
         });
     })
 
@@ -87,6 +89,47 @@ router.route('/users/:user')
         });
 
    });
+
+router.route('/items')
+
+    .get(function(req, res){
+        Item.find(function(err, items){
+            if (err)
+                res.send(err);
+            res.json({"data" : items})
+        })
+    })
+
+    .post(function(req, res){
+        var item = new Item();
+        item.title = req.body.title;
+        item.price = req.body.price;
+        item.isNegotiable = req.body.isNegotiable;
+        item.hasPictures = req.body.hasPictures;
+        item.phone = req.body.phone;
+        item.description = req.body.title;
+        //if (req.body.name === undefined) {
+        //    res.json({Error: "Cannot create user with no name."});
+        //    res.sendStatus(400);
+        //}
+        item.save(function(err) {
+            if (err)
+                res.send(err);
+
+            res.json(item)
+        });
+    });
+
+router.route('/items/:item')
+
+    .get(function(req, res){
+        Item.findById(req.params.item, function(err, item){
+            if (err)
+                res.send(err);
+
+            res.json(item)
+        })
+    });
 
 app.use('/api', router);
 
