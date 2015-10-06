@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var ItemSchema = new Schema({
     title: { type: String, minlength: 4, maxlength: 25, required: true },
     description: String,
-    price: Number,
+    price: { type: Number, required: true },
     isNegotiable: { type: Boolean, required: true },
     hasPictures: { type: Boolean, required: true },
     datePosted: Date,
