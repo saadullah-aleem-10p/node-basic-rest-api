@@ -1,3 +1,3 @@
 Super simple Nodejs REST API
 
-A demo REST API that performs CRUD operation on user objects.
+A demo REST API that performs CRUD operation on user and item objects
