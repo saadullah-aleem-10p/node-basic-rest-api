@@ -20,10 +20,6 @@ itemRouter.route('/items')
         item.hasPictures = req.body.hasPictures;
         item.phone = req.body.phone;
         item.description = req.body.title;
-        //if (req.body.name === undefined) {
-        //    res.json({Error: "Cannot create user with no name."});
-        //    res.sendStatus(400);
-        //}
         item.save(function(err) {
             if (err)
                 res.send(err);
