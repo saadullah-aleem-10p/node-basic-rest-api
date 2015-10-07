@@ -1,9 +1,19 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var app = express();
+'use strict';
 
-app.use(bodyParser.urlencoded({ extended: true}));
+var express = require('express'),
+    bodyParser = require('body-parser'),
+    app = express(),
+    expressValidator = require('express-validator');
+
 app.use(bodyParser.json());
+app.use(expressValidator({
+    customValidators: {
+        isPhoneNumber: function (value) {
+            return (value[0] == '0' && value[1] == '3' && value[2] < 5 && value.length < 12)
+        }
+    }
+}));
+app.use(bodyParser.urlencoded({ extended: true}));
 
 var port = process.env.PORT || 8000;
 
@@ -23,7 +33,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/node_rest_api');
 
 // including routes from other files
 var userRoutes = require('./routers/users.js');
-var itemRoutes = require('./routers/items.js')
+var itemRoutes = require('./routers/items.js');
 
 
 router.get('/', function(req, res){

@@ -12,6 +12,7 @@
     "body-parser": "~1.0.1",
     "express": "^4.13.3",
     "express-validator": "^2.17.1",
+    "express-validator-errors": "^2.1.0",
     "mongoose": "^4.1.9"
   }
 }

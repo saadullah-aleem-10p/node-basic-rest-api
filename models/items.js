@@ -1,22 +1,17 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+'use strict';
+
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
 
 var ItemSchema = new Schema({
-    title: { type: String, minlength: 4, maxlength: 25, required: true },
+    title: { type: String, required: true },
     description: String,
     price: { type: Number, required: true },
     isNegotiable: { type: Boolean, required: true },
     hasPictures: { type: Boolean, required: true },
     datePosted: Date,
-    phone: { type: String, minlength: 11, required: true }
+    phone: { type: String, required: true }
 
 });
-
-//ItemSchema.pre('save', function(next) {
-//    if (this.phone.length >11) {
-//
-//    }
-//    next();
-//});
 
 module.exports = mongoose.model('Item', ItemSchema);
